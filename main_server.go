@@ -2,21 +2,24 @@ package main
 
 import (
 	"log"
+	"html/template"
 	"net/http"
 )
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	hello := []byte("Test server. Hello, World!")
-	_, err := w.Write(hello)
+func clientHandler(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseFiles("page_template.html")
 	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := template.Execute(w, nil); err != nil {
 		log.Fatal(err)
 	}
 }
 
 func main() {
-	http.HandleFunc("/", helloHandler)
+	http.HandleFunc("/", clientHandler)
 	log.Println("[+] Collecting God Boris Power...")
 	log.Println("[+] Server Starting Up.")
-	// fmt.Println("[+] Server Starting Up... Collecting God Boris Power.")
 	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
 }
