@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"html/template"
+	"log"
 	"net/http"
 )
 
