@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  godbo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: h-alice/godbo-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./app:/go/src/app
+    networks:
+      internal:
+
+#    environment:
+#      REDIS_ADDR: "redis:6379"
+
+#  redis:
+#    image: redis:latest
+#    ports:
+#      - "6379:6379"
+
+networks:
+  internal:
+    driver: bridge
+
