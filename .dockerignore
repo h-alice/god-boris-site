@@ -1,0 +1,20 @@
+
+# IDE files.
+.vscode
+
+# Config file for nginx.
+nginx
+
+# Version control files.
+.git
+
+# Docker files.
+hooks
+tools
+Dockerfile
+.dockerignore
+
+# Misc
+.env
+.gitignore
+*.yml
