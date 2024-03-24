@@ -10,6 +10,7 @@ services:
       - "8080:8080"
     volumes:
       - ./app:/go/src/app
+      - ./static:/static
     networks:
       internal:
 
