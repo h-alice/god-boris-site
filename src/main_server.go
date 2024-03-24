@@ -7,7 +7,7 @@ import (
 )
 
 func clientHandler(w http.ResponseWriter, r *http.Request) {
-	template, err := template.ParseFiles("/static/page_template.html")
+	template, err := template.ParseFiles("/static/html/page_template.html")
 	if err != nil {
 		log.Fatal(err)
 	}
