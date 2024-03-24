@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  backend:
+  godbo-be:
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,10 +19,12 @@ services:
 #    environment:
 #      REDIS_ADDR: "redis:6379"
 
-#  redis:
-#    image: redis:latest
-#    ports:
-#      - "6379:6379"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      internal:
 
 networks:
   internal:

@@ -21,12 +21,10 @@ var (
 )
 
 func clientHandler(w http.ResponseWriter, r *http.Request) {
-	template, err := template.ParseFiles("/static/html/page_template.html")
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	if err := template.Execute(w, nil); err != nil {
+	page := PageContent{Counter: "-1"}
+
+	if err := page_template.Execute(w, page); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -46,7 +44,10 @@ func main() {
 	}
 
 	// Load template.
-	page_template = template.Must(template.ParseFiles("page_template.html"))
+	page_template = template.Must(template.ParseFiles("/static/html/page_template.html"))
+	if page_template == nil {
+		log.Fatal("[x] Error loading template.")
+	}
 
 	http.HandleFunc("/", clientHandler)
 	log.Println("[+] Collecting God Boris Power...")
