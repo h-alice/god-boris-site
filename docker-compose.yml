@@ -1,11 +1,13 @@
 version: '3.8'
 
 services:
-  godbo:
+  backend:
     build:
       context: .
       dockerfile: Dockerfile
     image: h-alice/godbo-backend
+    container_name: godbo
+    hostname: bo
     ports:
       - "8080:8080"
     volumes:
