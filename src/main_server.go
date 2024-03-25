@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+
+	"golang.org/x/text/message"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -24,12 +25,15 @@ var (
 func clientHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Get visitor count.
-	count, err := getAndincrementVisitorCount()
+	counter, err := getAndincrementVisitorCount()
 	if err != nil {
 		log.Println("[x] Error fetching visitor count: ", err)
 	}
 
-	page := PageContent{Counter: fmt.Sprintf("%d", count)}
+	// Format the countter value (add comma separator).
+	formatted_counter := message.NewPrinter(message.MatchLanguage("en")).Sprintf("%d", counter)
+
+	page := PageContent{Counter: formatted_counter}
 
 	if err := page_template.Execute(w, page); err != nil {
 		log.Fatal(err)
