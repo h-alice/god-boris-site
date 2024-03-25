@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  backend:
+  godbo-be:
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,7 +11,6 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./app:/go/src/app
       - ./static:/static
     networks:
       internal:
