@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -22,11 +23,27 @@ var (
 
 func clientHandler(w http.ResponseWriter, r *http.Request) {
 
-	page := PageContent{Counter: "-1"}
+	// Get visitor count.
+	count, err := getAndincrementVisitorCount()
+	if err != nil {
+		log.Println("[x] Error fetching visitor count: ", err)
+	}
+
+	page := PageContent{Counter: fmt.Sprintf("%d", count)}
 
 	if err := page_template.Execute(w, page); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getAndincrementVisitorCount() (int64, error) {
+	// Increment total visitors while called.
+	ctx := context.Background()
+	count, err := client.Incr(ctx, "total_visitors").Result()
+	if err != nil {
+		return -1, err
+	}
+	return count, nil
 }
 
 func main() {
