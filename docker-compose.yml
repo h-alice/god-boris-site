@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+  godbo-lb:
+    image: nginx:mainline
+    container_name: godbo-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      internal:
+
   godbo-be:
     build:
       context: .
@@ -8,8 +18,6 @@ services:
     image: h-alice/godbo-backend
     container_name: godbo
     hostname: bo
-    ports:
-      - "8080:8080"
     volumes:
       - ./static:/static
     networks:
